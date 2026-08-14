@@ -8,7 +8,7 @@
 - [x] LeRobot 与 LIBERO 安装完成
 - [x] `HuggingFaceVLA/smolvla_libero` 单回合闭环评测成功
 - [x] `libero_spatial/task_0` 三回合基线：1/3，成功率 33.33%
-- [ ] Quick-90：30 tasks × 3 episodes
+- [x] Quick-90：30 tasks × 3 episodes，64/90（71.11%）
 - [ ] Short-300：30 tasks × 10 episodes
 - [ ] 低显存微调与弱任务纠正数据实验
 
@@ -60,6 +60,21 @@ bash scripts/eval_short300.sh
 低显存机器上，SmolVLA 与 MuJoCo EGL 渲染会竞争 GPU 显存。本项目用 OSMesa 在 CPU 上渲染，将 GPU 显存留给策略模型。代价是仿真速度较慢，但能在 6GB 显存上稳定完成闭环评测。
 
 ## 已获得结果
+
+### Quick-90
+
+30 tasks × 3 episodes，seed 10：
+
+| Suite | Success | Success rate |
+|---|---:|---:|
+| LIBERO-Spatial | 20/30 | 66.67% |
+| LIBERO-Object | 21/30 | 70.00% |
+| LIBERO-Goal | 23/30 | 76.67% |
+| **Overall** | **64/90** | **71.11%** |
+
+15 个任务为 3/3，5 个任务为 2/3，9 个任务为 1/3，1 个任务为 0/3。完整明细见 `results/quick90_seed10.csv` 和 `results/quick90_seed10.json`。
+
+### Early task-0 baseline
 
 `libero_spatial/task_0`，3 episodes，seed 1000：
 

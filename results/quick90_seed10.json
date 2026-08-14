@@ -1,0 +1,35 @@
+{
+  "experiment": "quick90",
+  "date_completed": "2026-08-15",
+  "policy": "HuggingFaceVLA/smolvla_libero",
+  "seed": 10,
+  "episodes_per_task": 3,
+  "tasks_per_suite": 10,
+  "render_backend": "osmesa",
+  "lerobot_commit": "6adf51511b7625090eade8d82d9f61a1846ebe56",
+  "suites": {
+    "libero_spatial": {
+      "successes": 20,
+      "episodes": 30,
+      "success_rate_percent": 66.66666666666667,
+      "successes_by_task": [1, 3, 3, 3, 1, 1, 2, 1, 2, 3]
+    },
+    "libero_object": {
+      "successes": 21,
+      "episodes": 30,
+      "success_rate_percent": 70.0,
+      "successes_by_task": [1, 1, 3, 3, 1, 3, 3, 1, 3, 2]
+    },
+    "libero_goal": {
+      "successes": 23,
+      "episodes": 30,
+      "success_rate_percent": 76.66666666666667,
+      "successes_by_task": [3, 1, 2, 0, 3, 3, 2, 3, 3, 3]
+    }
+  },
+  "overall": {
+    "successes": 64,
+    "episodes": 90,
+    "success_rate_percent": 71.11111111111111
+  }
+}
