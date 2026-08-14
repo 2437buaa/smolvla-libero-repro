@@ -1,0 +1,18 @@
+{
+  "date": "2026-08-14",
+  "policy": "HuggingFaceVLA/smolvla_libero",
+  "suite": "libero_spatial",
+  "task_id": 0,
+  "seed": 1000,
+  "n_episodes": 3,
+  "successes": 1,
+  "success_rate_percent": 33.33333333333333,
+  "average_sum_reward": 0.3333333333333333,
+  "average_max_reward": 0.3333333333333333,
+  "evaluation_seconds": 354.8354992866516,
+  "seconds_per_episode": 118.2785005569458,
+  "render_backend": "osmesa",
+  "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+  "gpu_memory_gib": 5.65,
+  "lerobot_commit": "6adf51511b7625090eade8d82d9f61a1846ebe56"
+}

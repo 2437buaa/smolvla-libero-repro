@@ -1,0 +1,23 @@
+# Raw experiment artifacts
+outputs/
+*.log
+*.mp4
+
+# Model and dataset caches
+.cache/
+huggingface-cache/
+datasets/
+checkpoints/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Environments and editors
+.venv/
+.vscode/
+.idea/
+
+# System
+.DS_Store
