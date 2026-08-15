@@ -9,7 +9,7 @@
 - [x] `HuggingFaceVLA/smolvla_libero` 单回合闭环评测成功
 - [x] `libero_spatial/task_0` 三回合基线：1/3，成功率 33.33%
 - [x] Quick-90：30 tasks × 3 episodes，64/90（71.11%）
-- [ ] Short-300：30 tasks × 10 episodes
+- [x] Short-300：30 tasks × 10 episodes，205/300（68.33%）
 - [ ] 低显存微调与弱任务纠正数据实验
 
 ## 已验证环境
@@ -60,6 +60,21 @@ bash scripts/eval_short300.sh
 低显存机器上，SmolVLA 与 MuJoCo EGL 渲染会竞争 GPU 显存。本项目用 OSMesa 在 CPU 上渲染，将 GPU 显存留给策略模型。代价是仿真速度较慢，但能在 6GB 显存上稳定完成闭环评测。
 
 ## 已获得结果
+
+### Short-300
+
+30 tasks × 10 episodes，seed 0：
+
+| Suite | Success | Success rate |
+|---|---:|---:|
+| LIBERO-Spatial | 64/100 | 64.00% |
+| LIBERO-Object | 72/100 | 72.00% |
+| LIBERO-Goal | 69/100 | 69.00% |
+| **Overall** | **205/300** | **68.33%** |
+
+完整明细见 `docs/short300_results.md`、`results/short300_seed0.csv` 和
+`results/short300_seed0.json`。当前最弱任务是 `libero_goal/task_3`，成功率
+为 10%，后续将优先进行失败分析与纠正数据实验。
 
 ### Quick-90
 

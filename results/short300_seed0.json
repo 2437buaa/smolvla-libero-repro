@@ -1,0 +1,52 @@
+{
+  "benchmark": "SmolVLA LIBERO Short-300",
+  "checkpoint": "HuggingFaceVLA/smolvla_libero",
+  "seed": 0,
+  "episodes_per_task": 10,
+  "total_episodes": 300,
+  "overall": {
+    "successes": 205,
+    "episodes": 300,
+    "success_rate_percent": 68.33333333333333
+  },
+  "suites": {
+    "libero_spatial": {
+      "successes": 64,
+      "episodes": 100,
+      "success_rate_percent": 64.0,
+      "task_successes": [4, 9, 7, 7, 7, 6, 6, 6, 6, 6]
+    },
+    "libero_object": {
+      "successes": 72,
+      "episodes": 100,
+      "success_rate_percent": 72.0,
+      "task_successes": [4, 8, 9, 9, 6, 9, 8, 5, 7, 7]
+    },
+    "libero_goal": {
+      "successes": 69,
+      "episodes": 100,
+      "success_rate_percent": 69.0,
+      "task_successes": [8, 8, 9, 1, 8, 6, 8, 9, 8, 4]
+    }
+  },
+  "evaluation": {
+    "task_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "max_parallel_tasks": 1,
+    "batch_size": 1,
+    "async_envs": false,
+    "render_backend": "osmesa",
+    "recording": true
+  },
+  "software": {
+    "lerobot_version": "0.6.2",
+    "lerobot_commit": "6adf51511b7625090eade8d82d9f61a1846ebe56",
+    "torch": "2.11.0+cu128",
+    "mujoco": "3.8.1",
+    "python": "3.12.13"
+  },
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "vram_gib": 5.65,
+    "rendering": "CPU OSMesa"
+  }
+}

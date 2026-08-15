@@ -50,3 +50,28 @@ Interpretation: the model is sensitive to initialization; multi-episode evaluati
 Task distribution: 15 tasks at 3/3, 5 tasks at 2/3, 9 tasks at 1/3, and 1 task at 0/3. The only 0/3 task is `libero_goal/task_3`.
 
 Interpretation: one-reset smoke evaluation was optimistic. Multi-initialization evaluation exposes substantial task and reset sensitivity.
+
+## 2026-08-15 — Short-300
+
+- Policy: `HuggingFaceVLA/smolvla_libero`
+- Suites: `libero_spatial`, `libero_object`, `libero_goal`
+- Tasks: 10 per suite, 30 total
+- Episodes: 10 per task, 300 total
+- Seed: 0
+- Renderer: OSMesa
+
+| Suite | Success | Success rate |
+|---|---:|---:|
+| Spatial | 64/100 | 64.00% |
+| Object | 72/100 | 72.00% |
+| Goal | 69/100 | 69.00% |
+| Overall | 205/300 | 68.33% |
+
+The weakest task is `libero_goal/task_3` at 1/10. Other low-performing tasks
+include `libero_spatial/task_0`, `libero_object/task_0`, and
+`libero_goal/task_9`, each at 4/10.
+
+Compared with Quick-90, the overall estimate changed from 71.11% to 68.33%.
+The runs use different seeds and episode counts, so this is not evidence of
+model regression. Short-300 is retained as the more stable local baseline for
+future experiments.
