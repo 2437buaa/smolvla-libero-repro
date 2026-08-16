@@ -102,9 +102,7 @@ bash scripts/eval_checkpoint.sh \
 | LIBERO-Goal | 69/100 | 69.00% |
 | **Overall** | **205/300** | **68.33%** |
 
-完整明细见 `docs/short300_results.md`、`results/short300_seed0.csv` 和
-`results/short300_seed0.json`。其中最弱任务 `libero_goal/task_3` 的成功率
-为 10%，因此被选为后续定向 LoRA 纠正实验的目标。
+完整明细见 `docs/short300_results.md`、`results/short300_seed0.csv` 和 `results/short300_seed0.json`。其中最弱任务 `libero_goal/task_3` 的成功率为 10%，因此被选为后续定向 LoRA 纠正实验的目标。
 
 ### Quick-90
 
@@ -135,10 +133,7 @@ bash scripts/eval_checkpoint.sh \
 
 ### Targeted LoRA correction
 
-对 Short-300 中最弱的 `libero_goal/task_3`（语言指令：
-`open the top drawer and put the bowl inside`）使用 36 条示范、7157 帧进行
-一轮 rank-4 LoRA 微调。训练时仅 294,144 个参数可学习，占 605M 总参数约
-0.049%；batch size 4 时峰值显存约 2.27 GiB。
+对 Short-300 中最弱的 `libero_goal/task_3`（语言指令：`open the top drawer and put the bowl inside`）使用 36 条示范、7157 帧进行一轮 rank-4 LoRA 微调。训练时仅 294,144 个参数可学习，占 605M 总参数约0.049%；batch size 4 时峰值显存约 2.27 GiB。
 
 | Evaluation | Official checkpoint | Rank-4 LoRA |
 |---|---:|---:|
@@ -146,19 +141,10 @@ bash scripts/eval_checkpoint.sh \
 | Held-out seed 20, 10 episodes | 1/10 (10%) | 3/10 (30%) |
 | **Combined target task** | **2/20 (10%)** | **5/20 (25%)** |
 
-邻近任务检查未观察到明显遗忘：`libero_goal/task_2` 保持 90%，task 4
-从 80% 变为 90%。rank 8 在 seed 0 上同为 20%，未优于参数更少的
-rank 4。由于目标任务只有 20 个配对回合，这些结果属于初步证据，不应
-表述为统计显著提升。
+邻近任务检查未观察到明显遗忘：`libero_goal/task_2` 保持 90%，task 4 从 80% 变为 90%。rank 8 在 seed 0 上同为 20%，未优于参数更少的 rank 4。由于目标任务只有 20 个配对回合，这些结果属于初步证据，不应表述为统计显著提升。
 
-完整的失败分析、消融与限制见
-[`docs/task3_lora_results.md`](docs/task3_lora_results.md)，结构化结果见
-[`results/task3_lora_results.csv`](results/task3_lora_results.csv) 和
-[`results/task3_lora_results.json`](results/task3_lora_results.json)。
-训练生成的本地 checkpoint 位于 `outputs/`，受 `.gitignore` 排除；选定的
-rank-4 adapter 已单独发布至
-[`marlon777777/smolvla-libero-task3-lora-r4`](https://huggingface.co/marlon777777/smolvla-libero-task3-lora-r4)。
-仓库保留可重新生成它的脚本、配置和结构化评测结果。
+完整的失败分析、消融与限制见[`docs/task3_lora_results.md`](docs/task3_lora_results.md)，结构化结果见[`results/task3_lora_results.csv`](results/task3_lora_results.csv) 和[`results/task3_lora_results.json`](results/task3_lora_results.json)。
+训练生成的本地 checkpoint 位于 `outputs/`，受 `.gitignore` 排除；选定的 rank-4 adapter 已单独发布至[`marlon777777/smolvla-libero-task3-lora-r4`](https://huggingface.co/marlon777777/smolvla-libero-task3-lora-r4)。仓库保留可重新生成它的脚本、配置和结构化评测结果。
 
 ### Extended paired evaluation
 
@@ -172,27 +158,16 @@ bash scripts/eval_task3_multiseed.sh \
 python scripts/summarize_task3_multiseed.py
 ```
 
-脚本支持断点续跑：已经包含 `End of eval` 的运行会被自动跳过。固定的比较
-方案、主指标和报告边界见
-[`docs/task3_multiseed_protocol.md`](docs/task3_multiseed_protocol.md)。
+脚本支持断点续跑：已经包含 `End of eval` 的运行会被自动跳过。固定的比较方案、主指标和报告边界见[`docs/task3_multiseed_protocol.md`](docs/task3_multiseed_protocol.md)。
 
-固定方案完成后，held-out seeds 20/30/40/50 的结果为：官方模型
-4/40（10.0%），rank-4 LoRA 9/40（22.5%），绝对差值 +12.5 个百分点；
-配对转移为8次改善、3次退化，双侧精确 McNemar `p=0.226562`。因此结果
-表现为跨 seed 的正向趋势，但尚未达到统计显著。逐 seed 结果、Wilson
-区间与解释见
-[`docs/task3_multiseed_results.md`](docs/task3_multiseed_results.md)。
+固定方案完成后，held-out seeds 20/30/40/50 的结果为：官方模型 4/40（10.0%），rank-4 LoRA 9/40（22.5%），绝对差值 +12.5 个百分点；配对转移为8次改善、3次退化，双侧精确 McNemar `p=0.226562`。因此结果表现为跨 seed 的正向趋势，但尚未达到统计显著。逐 seed 结果、Wilson 区间与解释见[`docs/task3_multiseed_results.md`](docs/task3_multiseed_results.md)。
 
 ![Target task across reset seeds](assets/task3_multiseed.svg)
 
 ### Full Goal-suite forgetting control
 
-在 seed 0 的9个非目标 Goal 任务、90个配对回合上，官方模型为
-68/90（75.6%），rank-4 LoRA 为71/90（78.9%），差值 +3.3 个百分点；
-配对转移为13次改善和10次退化，精确 McNemar `p=0.677639`。因此没有
-观察到总体灾难性遗忘，但 task 0、1、6 存在局部下降，不能声称所有任务
-都得到改善。完整结果见
-[`docs/goal_forgetting_results.md`](docs/goal_forgetting_results.md)。
+在 seed 0 的9个非目标 Goal 任务、90个配对回合上，官方模型为 68/90（75.6%），rank-4 LoRA 为71/90（78.9%），差值 +3.3 个百分点；配对转移为13次改善和10次退化，精确 McNemar `p=0.677639`。因此没有
+观察到总体灾难性遗忘，但 task 0、1、6 存在局部下降，不能称所有任务都得到改善。完整结果见[`docs/goal_forgetting_results.md`](docs/goal_forgetting_results.md)。
 
 ![LIBERO-Goal performance redistribution](assets/goal_suite_retention.svg)
 
