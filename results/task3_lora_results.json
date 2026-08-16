@@ -1,0 +1,121 @@
+{
+  "target": {
+    "suite": "libero_goal",
+    "task_id": 3,
+    "task_index": 12,
+    "language": "open the top drawer and put the bowl inside",
+    "training_episodes": 36,
+    "training_frames": 7157
+  },
+  "selected_training_run": {
+    "base_policy": "HuggingFaceVLA/smolvla_libero",
+    "lora_rank": 4,
+    "lora_alpha": 4,
+    "batch_size": 4,
+    "gradient_accumulation_steps": 1,
+    "steps": 1790,
+    "approximate_epochs": 1.0,
+    "trainable_parameters": 294144,
+    "total_parameters": 605228320,
+    "peak_reported_vram_gib": 2.27,
+    "runtime_seconds": 569
+  },
+  "target_evaluations": [
+    {
+      "split": "validation",
+      "seed": 0,
+      "model": "official",
+      "episodes": 10,
+      "successes": 1,
+      "successful_episode_indices": [8]
+    },
+    {
+      "split": "validation",
+      "seed": 0,
+      "model": "lora_r4_pilot",
+      "rank": 4,
+      "training_steps": 500,
+      "episodes": 10,
+      "successes": 1,
+      "successful_episode_indices": [8]
+    },
+    {
+      "split": "validation",
+      "seed": 0,
+      "model": "lora_r4_1ep",
+      "rank": 4,
+      "training_steps": 1790,
+      "episodes": 10,
+      "successes": 2,
+      "successful_episode_indices": [6, 9]
+    },
+    {
+      "split": "validation",
+      "seed": 0,
+      "model": "lora_r8_1ep",
+      "rank": 8,
+      "training_steps": 1790,
+      "episodes": 10,
+      "successes": 2,
+      "successful_episode_indices": [5, 6]
+    },
+    {
+      "split": "holdout",
+      "seed": 20,
+      "model": "official",
+      "episodes": 10,
+      "successes": 1,
+      "successful_episode_indices": [5]
+    },
+    {
+      "split": "holdout",
+      "seed": 20,
+      "model": "lora_r4_1ep",
+      "rank": 4,
+      "training_steps": 1790,
+      "episodes": 10,
+      "successes": 3,
+      "successful_episode_indices": [3, 5, 8]
+    }
+  ],
+  "combined_target": {
+    "seeds": [0, 20],
+    "official": {
+      "successes": 2,
+      "episodes": 20,
+      "success_rate_percent": 10.0
+    },
+    "lora_r4_1ep": {
+      "successes": 5,
+      "episodes": 20,
+      "success_rate_percent": 25.0
+    },
+    "paired_transitions": {
+      "official_failure_to_lora_success": 4,
+      "official_success_to_lora_failure": 1
+    }
+  },
+  "neighbor_task_controls": [
+    {
+      "seed": 0,
+      "task_id": 2,
+      "official": {"successes": 9, "episodes": 10},
+      "lora_r4_1ep": {
+        "successes": 9,
+        "episodes": 10,
+        "successful_episode_indices": [0, 1, 2, 4, 5, 6, 7, 8, 9]
+      }
+    },
+    {
+      "seed": 0,
+      "task_id": 4,
+      "official": {"successes": 8, "episodes": 10},
+      "lora_r4_1ep": {
+        "successes": 9,
+        "episodes": 10,
+        "successful_episode_indices": [0, 1, 2, 3, 4, 5, 6, 8, 9]
+      }
+    }
+  ],
+  "scope_note": "Preliminary cross-seed result; the target-task sample is too small for a statistically conclusive claim."
+}

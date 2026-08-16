@@ -10,7 +10,8 @@
 - [x] `libero_spatial/task_0` 三回合基线：1/3，成功率 33.33%
 - [x] Quick-90：30 tasks × 3 episodes，64/90（71.11%）
 - [x] Short-300：30 tasks × 10 episodes，205/300（68.33%）
-- [ ] 低显存微调与弱任务纠正数据实验
+- [x] `libero_goal/task_3` 低显存 LoRA 定向微调
+- [x] LoRA rank 消融、留出 seed 测试与邻近任务遗忘检查
 
 ## 已验证环境
 
@@ -53,6 +54,21 @@ Short-300（30 tasks × 10 episodes，默认 reset seed 0）：
 bash scripts/eval_short300.sh
 ```
 
+验证并训练 `libero_goal/task_3` 的 rank-4 LoRA：
+
+```bash
+python scripts/verify_task3_dataset.py /home/mml/datasets/lerobot/libero
+bash scripts/train_task3_lora.sh /home/mml/datasets/lerobot/libero
+```
+
+评测训练后的 checkpoint：
+
+```bash
+bash scripts/eval_checkpoint.sh \
+  outputs/train/task3_lora_r4_s1790_bs4_seed1000/checkpoints/001790/pretrained_model \
+  libero_goal 3 10 20 holdout_seed20_r4_task3
+```
+
 所有原始日志和视频保存在 `outputs/`，默认不提交 Git。可公开的汇总结果放在 `results/`。
 
 ## 为什么使用 OSMesa
@@ -73,8 +89,8 @@ bash scripts/eval_short300.sh
 | **Overall** | **205/300** | **68.33%** |
 
 完整明细见 `docs/short300_results.md`、`results/short300_seed0.csv` 和
-`results/short300_seed0.json`。当前最弱任务是 `libero_goal/task_3`，成功率
-为 10%，后续将优先进行失败分析与纠正数据实验。
+`results/short300_seed0.json`。其中最弱任务 `libero_goal/task_3` 的成功率
+为 10%，因此被选为后续定向 LoRA 纠正实验的目标。
 
 ### Quick-90
 
@@ -103,10 +119,36 @@ bash scripts/eval_short300.sh
 
 单次 100% 成功不代表任务真实成功率，因此项目以多回合结果作为基线。
 
+### Targeted LoRA correction
+
+对 Short-300 中最弱的 `libero_goal/task_3`（语言指令：
+`open the top drawer and put the bowl inside`）使用 36 条示范、7157 帧进行
+一轮 rank-4 LoRA 微调。训练时仅 294,144 个参数可学习，占 605M 总参数约
+0.049%；batch size 4 时峰值显存约 2.27 GiB。
+
+| Evaluation | Official checkpoint | Rank-4 LoRA |
+|---|---:|---:|
+| Seed 0, 10 episodes | 1/10 (10%) | 2/10 (20%) |
+| Held-out seed 20, 10 episodes | 1/10 (10%) | 3/10 (30%) |
+| **Combined target task** | **2/20 (10%)** | **5/20 (25%)** |
+
+邻近任务检查未观察到明显遗忘：`libero_goal/task_2` 保持 90%，task 4
+从 80% 变为 90%。rank 8 在 seed 0 上同为 20%，未优于参数更少的
+rank 4。由于目标任务只有 20 个配对回合，这些结果属于初步证据，不应
+表述为统计显著提升。
+
+完整的失败分析、消融与限制见
+[`docs/task3_lora_results.md`](docs/task3_lora_results.md)，结构化结果见
+[`results/task3_lora_results.csv`](results/task3_lora_results.csv) 和
+[`results/task3_lora_results.json`](results/task3_lora_results.json)。
+训练生成的 adapter checkpoint 位于 `outputs/`，受 `.gitignore` 排除；仓库
+保留可重新生成它的脚本、配置和结构化评测结果。
+
 ## 上游项目
 
 - [LeRobot](https://github.com/huggingface/lerobot)
 - [SmolVLA LIBERO checkpoint](https://huggingface.co/HuggingFaceVLA/smolvla_libero)
+- [LeRobot LIBERO dataset](https://huggingface.co/datasets/lerobot/libero)
 - [LIBERO benchmark](https://github.com/Lifelong-Robot-Learning/LIBERO)
 - [LeRobot LIBERO documentation](https://huggingface.co/docs/lerobot/libero)
 

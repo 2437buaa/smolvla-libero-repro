@@ -1,0 +1,11 @@
+split,seed,task_id,model,rank,training_steps,episodes,successes,success_rate_percent,successful_episode_indices
+validation,0,3,official,,,10,1,10.0,8
+validation,0,3,lora_r4_pilot,4,500,10,1,10.0,8
+validation,0,3,lora_r4_1ep,4,1790,10,2,20.0,"6,9"
+validation,0,3,lora_r8_1ep,8,1790,10,2,20.0,"5,6"
+holdout,20,3,official,,,10,1,10.0,5
+holdout,20,3,lora_r4_1ep,4,1790,10,3,30.0,"3,5,8"
+control,0,2,official,,,10,9,90.0,
+control,0,2,lora_r4_1ep,4,1790,10,9,90.0,"0,1,2,4,5,6,7,8,9"
+control,0,4,official,,,10,8,80.0,
+control,0,4,lora_r4_1ep,4,1790,10,9,90.0,"0,1,2,3,4,5,6,8,9"

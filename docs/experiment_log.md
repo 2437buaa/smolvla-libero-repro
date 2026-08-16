@@ -75,3 +75,76 @@ Compared with Quick-90, the overall estimate changed from 71.11% to 68.33%.
 The runs use different seeds and episode counts, so this is not evidence of
 model regression. Short-300 is retained as the more stable local baseline for
 future experiments.
+
+## 2026-08-16 — Target-task dataset verification
+
+- Target suite/task: `libero_goal/task_3`
+- Language instruction: `open the top drawer and put the bowl inside`
+- Dataset: local `lerobot/libero`, LeRobotDataset v3.0
+- Task index: 12
+- Selected demonstrations: 36 episodes, 7157 frames
+- Decoded features: two `(3, 256, 256)` RGB views, state `(8,)`, action `(7,)`
+
+An older image-in-Parquet conversion was rejected after its episode metadata
+did not match the episode indices stored in the data shards. Training uses only
+the verified `lerobot/libero` copy.
+
+## 2026-08-16 — Failure analysis of `libero_goal/task_3`
+
+The Short-300 baseline achieved 1/10. Manual review found:
+
+- Episodes 0, 1, 2, 3, 4, 5, and 7: drawer not opened and bowl not grasped.
+- Episode 6: missed the drawer handle, later grasped the bowl, then released it
+  on the table because the drawer remained closed.
+- Episode 8: successful open-drawer, grasp-bowl, place-bowl sequence.
+- Episode 9: opened the drawer but missed the bowl during grasping.
+
+The main observed bottlenecks are end-effector alignment during handle/bowl
+contact and error propagation between subtasks.
+
+## 2026-08-16 — Low-VRAM LoRA training
+
+- Starting policy: `HuggingFaceVLA/smolvla_libero`
+- Training data: the 36 target-task episodes only
+- Selected configuration: rank 4, alpha 4, batch size 4, 1790 steps
+- Coverage: approximately one epoch (about 7160 sampled frames)
+- Automatic mixed precision: enabled through `policy.use_amp`
+- Trainable parameters: 294,144 / 605,228,320 (approximately 0.049%)
+- Peak reported GPU memory: 2.27 GiB
+- Runtime: 9 minutes 29 seconds on RTX 3060 Laptop 6GB
+
+A 500-microbatch pilot with gradient accumulation reproduced the 10% baseline
+and emitted a scheduler-order warning, so the selected run uses real batch size
+4 with gradient accumulation disabled.
+
+## 2026-08-16 — LoRA evaluation and ablation
+
+| Evaluation | Official | Rank-4 LoRA | Rank-8 LoRA |
+|---|---:|---:|---:|
+| Seed 0, 10 episodes | 10% | 20% | 20% |
+| Held-out seed 20, 10 episodes | 10% | 30% | not selected |
+| Combined target-task result | 2/20 (10%) | 5/20 (25%) | — |
+
+Rank 8 changed which seed-0 episodes succeeded but did not improve aggregate
+success over rank 4. Rank 4 was retained because it matched rank 8 with fewer
+trainable parameters.
+
+On held-out seed 20, rank 4 preserved the original successful episode and added
+two successes. Across seed 0 and seed 20, the paired outcomes contain four
+base-failure to LoRA-success transitions and one base-success to LoRA-failure
+transition.
+
+## 2026-08-16 — Neighbor-task control
+
+The selected rank-4 checkpoint was evaluated on two neighboring Goal tasks
+using the same seed-0, 10-episode protocol as Short-300.
+
+| Task | Official Short-300 | Rank-4 LoRA |
+|---|---:|---:|
+| `libero_goal/task_2` | 9/10 (90%) | 9/10 (90%) |
+| `libero_goal/task_4` | 8/10 (80%) | 9/10 (90%) |
+| Combined | 17/20 (85%) | 18/20 (90%) |
+
+No obvious catastrophic forgetting was observed on these two controls. The
+sample remains small, and the task-4 increase should not be interpreted as
+proven positive transfer.

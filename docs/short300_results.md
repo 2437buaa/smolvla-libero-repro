@@ -63,8 +63,9 @@ tasks are `libero_spatial/task_0` and `libero_object/task_0` (both 40%), plus
 - Raw logs and videos are intentionally excluded from Git because of their
   size. The structured CSV and JSON results are the version-controlled record.
 
-## Next experiment
+## Follow-up experiment
 
-Inspect success/failure videos for `libero_goal/task_3`, classify failure modes,
-then run a small low-VRAM fine-tuning experiment and compare against this fixed
-68.33% baseline.
+The proposed `libero_goal/task_3` failure analysis and low-VRAM fine-tuning
+experiment has been completed. See [`task3_lora_results.md`](task3_lora_results.md)
+for the targeted LoRA correction, ablation, held-out evaluation, and neighboring
+task controls.
