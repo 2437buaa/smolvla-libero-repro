@@ -1,0 +1,9 @@
+# Known-good top-level versions used for the published experiments.
+# This is a reference record, not a complete transitive lock file.
+torch==2.11.0+cu128
+torchvision==0.26.0+cu128
+mujoco==3.8.1
+peft==0.20.0
+datasets==4.8.5
+accelerate==1.14.0
+

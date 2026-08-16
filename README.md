@@ -38,9 +38,41 @@
 | MuJoCo | 3.8.1 |
 | 渲染后端 | OSMesa（CPU 渲染） |
 
+## 从一台新 Ubuntu 机器开始
+
+仓库现在包含从零安装所需的环境文件、下载脚本和最小测试。下面是最短流程；每一步的
+作用、预期输出和常见问题见
+[`docs/setup_ubuntu2204.md`](docs/setup_ubuntu2204.md)。
+
+```bash
+git clone https://github.com/2437buaa/smolvla-libero-repro.git
+cd smolvla-libero-repro
+
+bash scripts/install_system_dependencies.sh
+conda env create -f environment.yml
+conda activate smolvla-libero
+bash scripts/setup_lerobot.sh
+
+python scripts/download_libero_assets.py
+python scripts/prefetch_models.py
+bash scripts/smoke_test.sh
+```
+
+上面会固定 LeRobot 到本实验使用的 commit，并下载闭环评测必需的仿真素材和模型。
+只做评测不需要完整训练数据。若要复现 task 3 的 LoRA 微调，再执行：
+
+```bash
+python scripts/download_libero_dataset.py
+python scripts/verify_task3_dataset.py "${HOME}/datasets/lerobot/libero"
+bash scripts/train_task3_lora.sh "${HOME}/datasets/lerobot/libero"
+```
+
+建议最小测试预留 20GB 磁盘，完整评测和训练预留 50GB 以上。PyTorch wheel 自带所需
+CUDA 运行库，但主机必须已有可用的 NVIDIA 驱动，且 `nvidia-smi` 能正常识别显卡。
+
 ## 快速运行
 
-激活已经配置好的环境：
+如果已经按上一节配置完成，可直接激活环境：
 
 ```bash
 conda activate smolvla-libero
@@ -84,6 +116,8 @@ bash scripts/eval_checkpoint.sh \
 ```
 
 所有原始日志和视频保存在 `outputs/`，默认不提交 Git。可公开的汇总结果放在 `results/`。
+首次运行默认允许 Hugging Face 联网下载；确认文件已经缓存后，可以在命令前添加
+`HF_HUB_OFFLINE=1` 强制离线运行。
 
 ## 为什么使用 OSMesa
 

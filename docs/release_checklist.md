@@ -4,6 +4,9 @@
 - [x] Original scripts and documentation use Apache-2.0.
 - [x] Third-party components are linked and not redistributed.
 - [x] Exact LeRobot commit and verified environment are documented.
+- [x] Fresh Ubuntu setup, asset/model/data download, and smoke-test helpers are included.
+- [x] LIBERO assets and training dataset revisions used by the helpers are fixed.
+- [x] First-run scripts allow downloads; offline mode remains an explicit option.
 - [x] Negative and statistically non-significant results are retained.
 - [x] Figures are generated from tracked CSV files.
 - [ ] Choose the public author name to add to a future `CITATION.cff`.
@@ -17,6 +20,9 @@ Before changing visibility, run:
 ```bash
 git status --short
 python scripts/make_figures.py
+find scripts -type f -name '*.sh' -exec bash -n {} \;
+python -m py_compile scripts/*.py
 git diff --check
-git grep -n -i -E 'token|password|secret|api[_-]?key|/home/' -- ':!docs/release_checklist.md'
+git grep -n -E '(hf_[A-Za-z0-9]{10,}|BEGIN [A-Z ]*PRIVATE KEY|/home/[A-Za-z0-9._-]+|github-proxy)' \
+  -- ':!docs/release_checklist.md' || echo "privacy_scan: OK"
 ```

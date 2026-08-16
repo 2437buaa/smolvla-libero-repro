@@ -59,8 +59,9 @@ scripts are available in this repository.
 
 ## Usage
 
-With the pinned LeRobot and LIBERO environment documented here, evaluate the
-Hub adapter using:
+For a fresh Ubuntu 22.04 machine, first follow
+[`docs/setup_ubuntu2204.md`](docs/setup_ubuntu2204.md). With that pinned
+LeRobot and LIBERO environment, evaluate the Hub adapter using:
 
 ```bash
 bash scripts/eval_checkpoint.sh \

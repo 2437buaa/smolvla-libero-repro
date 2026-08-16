@@ -23,7 +23,7 @@ mkdir -p "${OUTPUT_DIR}"
 
 export MUJOCO_GL=osmesa
 export PYOPENGL_PLATFORM=osmesa
-export HF_HUB_OFFLINE="${HF_HUB_OFFLINE:-1}"
+export HF_HUB_OFFLINE="${HF_HUB_OFFLINE:-0}"
 export PYTORCH_CUDA_ALLOC_CONF="${PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:True}"
 
 echo "Run: ${RUN_NAME}"
