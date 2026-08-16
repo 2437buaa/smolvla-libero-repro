@@ -140,3 +140,10 @@ and confidence intervals.
 Future work should expand forgetting controls to all Goal tasks, compare lower
 learning rates or rehearsal data, and use larger independently fixed evaluation
 sets if stronger statistical claims are required.
+
+The full seed-0 Goal-suite control was subsequently completed. Across the nine
+non-target tasks, the official checkpoint scored 68/90 and rank-4 LoRA scored
+71/90, with 13 gain and 10 loss transitions (`p=0.677639`). See
+[`goal_forgetting_results.md`](goal_forgetting_results.md). This removes the
+earlier two-task control limitation within Goal at seed 0, but not across other
+suites or unseen seeds.

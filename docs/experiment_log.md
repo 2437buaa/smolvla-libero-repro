@@ -172,3 +172,15 @@ scores 11/50, with 10 gain and 4 loss transitions (`p=0.179565`).
 The new evaluation strengthens the evidence that the adapter changes
 closed-loop behavior across reset seeds, but it also exposes a regression on
 seed 30. Full details are in `docs/task3_multiseed_results.md`.
+
+## 2026-08-16 — Full LIBERO-Goal forgetting control
+
+The selected adapter was evaluated on all nine non-target Goal tasks using the
+seed-0 Short-300 protocol. The official checkpoint scored 68/90 (75.6%) and
+rank-4 LoRA scored 71/90 (78.9%), a +3.3 percentage-point difference. Paired
+outcomes contain 13 gains and 10 losses (`p=0.677639`, exact McNemar).
+
+No aggregate catastrophic forgetting is observed, but performance is
+redistributed: task 6 changes from 8/10 to 5/10 and task 0 from 8/10 to 6/10,
+while task 9 changes from 4/10 to 7/10. The result does not establish positive
+transfer or retention outside Goal at seed 0.

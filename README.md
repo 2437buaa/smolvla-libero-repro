@@ -167,6 +167,15 @@ python scripts/summarize_task3_multiseed.py
 区间与解释见
 [`docs/task3_multiseed_results.md`](docs/task3_multiseed_results.md)。
 
+### Full Goal-suite forgetting control
+
+在 seed 0 的9个非目标 Goal 任务、90个配对回合上，官方模型为
+68/90（75.6%），rank-4 LoRA 为71/90（78.9%），差值 +3.3 个百分点；
+配对转移为13次改善和10次退化，精确 McNemar `p=0.677639`。因此没有
+观察到总体灾难性遗忘，但 task 0、1、6 存在局部下降，不能声称所有任务
+都得到改善。完整结果见
+[`docs/goal_forgetting_results.md`](docs/goal_forgetting_results.md)。
+
 ## 上游项目
 
 - [LeRobot](https://github.com/huggingface/lerobot)
