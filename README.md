@@ -144,6 +144,22 @@ rank 4。由于目标任务只有 20 个配对回合，这些结果属于初步�
 训练生成的 adapter checkpoint 位于 `outputs/`，受 `.gitignore` 排除；仓库
 保留可重新生成它的脚本、配置和结构化评测结果。
 
+### Extended paired evaluation
+
+在模型参数冻结后，用三个新 seed 扩展目标任务的配对评测：
+
+```bash
+bash scripts/eval_task3_multiseed.sh \
+  outputs/train/task3_lora_r4_1ep_bs4/checkpoints/001790/pretrained_model \
+  30 40 50
+
+python scripts/summarize_task3_multiseed.py
+```
+
+脚本支持断点续跑：已经包含 `End of eval` 的运行会被自动跳过。固定的比较
+方案、主指标和报告边界见
+[`docs/task3_multiseed_protocol.md`](docs/task3_multiseed_protocol.md)。
+
 ## 上游项目
 
 - [LeRobot](https://github.com/huggingface/lerobot)
