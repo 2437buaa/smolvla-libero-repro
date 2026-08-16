@@ -8,6 +8,9 @@
 > improves the selected task from 10.0% to 22.5% on 40 held-out episodes, but
 > the paired result is not statistically conclusive (`p=0.226562`).
 
+**公开 LoRA adapter / Published adapter:**
+[`marlon777777/smolvla-libero-task3-lora-r4`](https://huggingface.co/marlon777777/smolvla-libero-task3-lora-r4)
+
 ![LIBERO benchmark success rates](assets/benchmark_success.svg)
 
 ## 当前状态
@@ -21,6 +24,7 @@
 - [x] `libero_goal/task_3` 低显存 LoRA 定向微调
 - [x] LoRA rank 消融、留出 seed 测试与邻近任务遗忘检查
 - [x] 固定多 seed 配对评测与完整 LIBERO-Goal 遗忘控制
+- [x] Rank-4 LoRA adapter 已发布至 Hugging Face
 
 ## 已验证环境
 
@@ -75,7 +79,7 @@ bash scripts/train_task3_lora.sh "${DATASET_ROOT}"
 
 ```bash
 bash scripts/eval_checkpoint.sh \
-  outputs/train/task3_lora_r4_s1790_bs4_seed1000/checkpoints/001790/pretrained_model \
+  outputs/train/task3_lora_r4_1ep_bs4/checkpoints/001790/pretrained_model \
   libero_goal 3 10 20 holdout_seed20_r4_task3
 ```
 
@@ -151,8 +155,10 @@ rank 4。由于目标任务只有 20 个配对回合，这些结果属于初步�
 [`docs/task3_lora_results.md`](docs/task3_lora_results.md)，结构化结果见
 [`results/task3_lora_results.csv`](results/task3_lora_results.csv) 和
 [`results/task3_lora_results.json`](results/task3_lora_results.json)。
-训练生成的 adapter checkpoint 位于 `outputs/`，受 `.gitignore` 排除；仓库
-保留可重新生成它的脚本、配置和结构化评测结果。
+训练生成的本地 checkpoint 位于 `outputs/`，受 `.gitignore` 排除；选定的
+rank-4 adapter 已单独发布至
+[`marlon777777/smolvla-libero-task3-lora-r4`](https://huggingface.co/marlon777777/smolvla-libero-task3-lora-r4)。
+仓库保留可重新生成它的脚本、配置和结构化评测结果。
 
 ### Extended paired evaluation
 
@@ -160,7 +166,7 @@ rank 4。由于目标任务只有 20 个配对回合，这些结果属于初步�
 
 ```bash
 bash scripts/eval_task3_multiseed.sh \
-  outputs/train/task3_lora_r4_s1790_bs4_seed1000/checkpoints/001790/pretrained_model \
+  outputs/train/task3_lora_r4_1ep_bs4/checkpoints/001790/pretrained_model \
   30 40 50
 
 python scripts/summarize_task3_multiseed.py
@@ -196,8 +202,9 @@ python scripts/summarize_task3_multiseed.py
 python scripts/make_figures.py
 ```
 
-若要单独发布 LoRA adapter，可使用 [`MODEL_CARD.md`](MODEL_CARD.md)；公开
-仓库前的检查项见 [`docs/release_checklist.md`](docs/release_checklist.md)。
+LoRA adapter 的完整说明见 [`MODEL_CARD.md`](MODEL_CARD.md) 和
+[`Hugging Face 模型页`](https://huggingface.co/marlon777777/smolvla-libero-task3-lora-r4)；
+公开发布检查项见 [`docs/release_checklist.md`](docs/release_checklist.md)。
 
 ## 上游项目
 

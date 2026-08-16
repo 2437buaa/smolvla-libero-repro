@@ -7,10 +7,10 @@
 - [x] Negative and statistically non-significant results are retained.
 - [x] Figures are generated from tracked CSV files.
 - [ ] Choose the public author name to add to a future `CITATION.cff`.
-- [ ] Optionally upload the adapter to Hugging Face using `MODEL_CARD.md`.
+- [x] Adapter published to `marlon777777/smolvla-libero-task3-lora-r4`.
 - [ ] Add one representative success/failure GIF only after checking its size.
-- [ ] Change GitHub visibility from Private to Public.
-- [ ] Create a `v1.0.0` GitHub release after the public README is verified.
+- [x] GitHub visibility changed from Private to Public.
+- [x] `v1.0.0` GitHub release created after the public README was verified.
 
 Before changing visibility, run:
 
