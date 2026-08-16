@@ -160,6 +160,13 @@ python scripts/summarize_task3_multiseed.py
 方案、主指标和报告边界见
 [`docs/task3_multiseed_protocol.md`](docs/task3_multiseed_protocol.md)。
 
+固定方案完成后，held-out seeds 20/30/40/50 的结果为：官方模型
+4/40（10.0%），rank-4 LoRA 9/40（22.5%），绝对差值 +12.5 个百分点；
+配对转移为8次改善、3次退化，双侧精确 McNemar `p=0.226562`。因此结果
+表现为跨 seed 的正向趋势，但尚未达到统计显著。逐 seed 结果、Wilson
+区间与解释见
+[`docs/task3_multiseed_results.md`](docs/task3_multiseed_results.md)。
+
 ## 上游项目
 
 - [LeRobot](https://github.com/huggingface/lerobot)

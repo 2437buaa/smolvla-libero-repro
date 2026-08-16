@@ -112,9 +112,23 @@ verified target-task demonstrations produced a preliminary cross-seed gain on
 the selected difficult task, with no visible degradation on two neighboring
 tasks.
 
+## Subsequent multi-seed extension
+
+After checkpoint selection, the comparison was extended with new reset seeds
+30, 40, and 50 under a fixed reporting protocol. Across held-out seeds 20, 30,
+40, and 50, the official checkpoint scored 4/40 (10.0%) and rank-4 LoRA scored
+9/40 (22.5%). The paired outcomes contain eight gain transitions and three loss
+transitions; the two-sided exact McNemar p-value is 0.226562.
+
+The direction of the initial result persists, but the difference remains
+statistically inconclusive. See
+[`task3_multiseed_results.md`](task3_multiseed_results.md) for per-seed outcomes
+and confidence intervals.
+
 ## Limitations
 
-- Only 20 paired target-task rollouts are used across the two seeds.
+- The initial model-selection stage used 20 paired rollouts; the subsequent
+  held-out extension contains 40 paired rollouts and remains modest.
 - The difference is not statistically conclusive; confidence intervals are
   wide at this sample size.
 - Seed 0 was used during model selection and should be treated as validation,
@@ -123,6 +137,6 @@ tasks.
 - Hyperparameter search was limited to rank 4 versus rank 8 and a short pilot.
 - Raw videos and logs are excluded from Git; structured outcomes are retained.
 
-Future work should evaluate more held-out seeds, expand controls to all Goal
-tasks, compare lower learning rates or rehearsal data, and report paired
-confidence intervals.
+Future work should expand forgetting controls to all Goal tasks, compare lower
+learning rates or rehearsal data, and use larger independently fixed evaluation
+sets if stronger statistical claims are required.

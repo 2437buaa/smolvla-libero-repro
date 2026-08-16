@@ -148,3 +148,27 @@ using the same seed-0, 10-episode protocol as Short-300.
 No obvious catastrophic forgetting was observed on these two controls. The
 sample remains small, and the task-4 increase should not be interpreted as
 proven positive transfer.
+
+## 2026-08-16 — Fixed multi-seed extension
+
+The selected rank-4 checkpoint was frozen before evaluating new reset seeds
+30, 40, and 50. Together with the existing held-out seed 20, the primary
+held-out aggregate contains 40 paired episodes per model. Seed 0 remains a
+validation/model-selection result and is reported separately.
+
+| Seed | Official | Rank-4 LoRA | Gain / loss transitions |
+|---:|---:|---:|---:|
+| 20 | 1/10 | 3/10 | 2 / 0 |
+| 30 | 1/10 | 0/10 | 0 / 1 |
+| 40 | 1/10 | 3/10 | 3 / 1 |
+| 50 | 1/10 | 3/10 | 3 / 1 |
+| **Held-out total** | **4/40 (10.0%)** | **9/40 (22.5%)** | **8 / 3** |
+
+The held-out absolute difference is +12.5 percentage points. The two-sided
+exact McNemar p-value is 0.226562, so the positive trend is not statistically
+conclusive. Including seed 0, the official checkpoint scores 5/50 and LoRA
+scores 11/50, with 10 gain and 4 loss transitions (`p=0.179565`).
+
+The new evaluation strengthens the evidence that the adapter changes
+closed-loop behavior across reset seeds, but it also exposes a regression on
+seed 30. Full details are in `docs/task3_multiseed_results.md`.

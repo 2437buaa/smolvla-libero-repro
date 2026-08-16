@@ -1,0 +1,97 @@
+{
+  "task": "libero_goal/task_3",
+  "episodes_per_seed_per_model": 10,
+  "per_seed": [
+    {
+      "seed": 0,
+      "episodes": 10,
+      "base_successes": 1,
+      "r4_successes": 2,
+      "base_success_indices": [8],
+      "r4_success_indices": [6, 9],
+      "base_failure_to_r4_success": 2,
+      "base_success_to_r4_failure": 1
+    },
+    {
+      "seed": 20,
+      "episodes": 10,
+      "base_successes": 1,
+      "r4_successes": 3,
+      "base_success_indices": [5],
+      "r4_success_indices": [3, 5, 8],
+      "base_failure_to_r4_success": 2,
+      "base_success_to_r4_failure": 0
+    },
+    {
+      "seed": 30,
+      "episodes": 10,
+      "base_successes": 1,
+      "r4_successes": 0,
+      "base_success_indices": [1],
+      "r4_success_indices": [],
+      "base_failure_to_r4_success": 0,
+      "base_success_to_r4_failure": 1
+    },
+    {
+      "seed": 40,
+      "episodes": 10,
+      "base_successes": 1,
+      "r4_successes": 3,
+      "base_success_indices": [4],
+      "r4_success_indices": [0, 3, 5],
+      "base_failure_to_r4_success": 3,
+      "base_success_to_r4_failure": 1
+    },
+    {
+      "seed": 50,
+      "episodes": 10,
+      "base_successes": 1,
+      "r4_successes": 3,
+      "base_success_indices": [1],
+      "r4_success_indices": [0, 2, 8],
+      "base_failure_to_r4_success": 3,
+      "base_success_to_r4_failure": 1
+    }
+  ],
+  "heldout": {
+    "seeds": [20, 30, 40, 50],
+    "episodes_per_model": 40,
+    "base": {
+      "successes": 4,
+      "rate_percent": 10.0,
+      "wilson_95_percent": [3.957952868260638, 23.0517752275223]
+    },
+    "r4": {
+      "successes": 9,
+      "rate_percent": 22.5,
+      "wilson_95_percent": [12.316091323540744, 37.50309674231003]
+    },
+    "paired_difference_percentage_points": 12.5,
+    "base_failure_to_r4_success": 8,
+    "base_success_to_r4_failure": 3,
+    "mcnemar_exact_two_sided_p": 0.2265625
+  },
+  "all_reported_seeds": {
+    "seeds": [0, 20, 30, 40, 50],
+    "episodes_per_model": 50,
+    "base": {
+      "successes": 5,
+      "rate_percent": 10.0,
+      "wilson_95_percent": [4.347576493189041, 21.360231437479655]
+    },
+    "r4": {
+      "successes": 11,
+      "rate_percent": 22.0,
+      "wilson_95_percent": [12.753915970214419, 35.24154958125367]
+    },
+    "paired_difference_percentage_points": 12.0,
+    "base_failure_to_r4_success": 10,
+    "base_success_to_r4_failure": 4,
+    "mcnemar_exact_two_sided_p": 0.1795654296875
+  },
+  "notes": [
+    "Seed 0 was used during model selection and is excluded from the held-out aggregate.",
+    "The exact McNemar test uses paired per-episode binary outcomes.",
+    "Wilson intervals describe each model rate; they are not paired-difference intervals."
+  ]
+}
