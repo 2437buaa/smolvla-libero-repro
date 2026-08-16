@@ -2,6 +2,14 @@
 
 在 Ubuntu 22.04 和 RTX 3060 Laptop 6GB 上复现 SmolVLA 的 LIBERO 闭环评测，并逐步扩展到 Quick-90、Short-300 和低显存微调。
 
+> **English summary.** A low-VRAM reproduction of SmolVLA on LIBERO with 300
+> closed-loop baseline episodes, targeted rank-4 LoRA adaptation, fixed
+> multi-seed evaluation, and full LIBERO-Goal retention controls. The adapter
+> improves the selected task from 10.0% to 22.5% on 40 held-out episodes, but
+> the paired result is not statistically conclusive (`p=0.226562`).
+
+![LIBERO benchmark success rates](assets/benchmark_success.svg)
+
 ## 当前状态
 
 - [x] CUDA 版 PyTorch 可用
@@ -12,6 +20,7 @@
 - [x] Short-300：30 tasks × 10 episodes，205/300（68.33%）
 - [x] `libero_goal/task_3` 低显存 LoRA 定向微调
 - [x] LoRA rank 消融、留出 seed 测试与邻近任务遗忘检查
+- [x] 固定多 seed 配对评测与完整 LIBERO-Goal 遗忘控制
 
 ## 已验证环境
 
@@ -57,8 +66,9 @@ bash scripts/eval_short300.sh
 验证并训练 `libero_goal/task_3` 的 rank-4 LoRA：
 
 ```bash
-python scripts/verify_task3_dataset.py /home/mml/datasets/lerobot/libero
-bash scripts/train_task3_lora.sh /home/mml/datasets/lerobot/libero
+DATASET_ROOT="${HOME}/datasets/lerobot/libero"
+python scripts/verify_task3_dataset.py "${DATASET_ROOT}"
+bash scripts/train_task3_lora.sh "${DATASET_ROOT}"
 ```
 
 评测训练后的 checkpoint：
@@ -150,7 +160,7 @@ rank 4。由于目标任务只有 20 个配对回合，这些结果属于初步�
 
 ```bash
 bash scripts/eval_task3_multiseed.sh \
-  outputs/train/task3_lora_r4_1ep_bs4/checkpoints/001790/pretrained_model \
+  outputs/train/task3_lora_r4_s1790_bs4_seed1000/checkpoints/001790/pretrained_model \
   30 40 50
 
 python scripts/summarize_task3_multiseed.py
@@ -167,6 +177,8 @@ python scripts/summarize_task3_multiseed.py
 区间与解释见
 [`docs/task3_multiseed_results.md`](docs/task3_multiseed_results.md)。
 
+![Target task across reset seeds](assets/task3_multiseed.svg)
+
 ### Full Goal-suite forgetting control
 
 在 seed 0 的9个非目标 Goal 任务、90个配对回合上，官方模型为
@@ -175,6 +187,17 @@ python scripts/summarize_task3_multiseed.py
 观察到总体灾难性遗忘，但 task 0、1、6 存在局部下降，不能声称所有任务
 都得到改善。完整结果见
 [`docs/goal_forgetting_results.md`](docs/goal_forgetting_results.md)。
+
+![LIBERO-Goal performance redistribution](assets/goal_suite_retention.svg)
+
+图表可由结构化结果重新生成：
+
+```bash
+python scripts/make_figures.py
+```
+
+若要单独发布 LoRA adapter，可使用 [`MODEL_CARD.md`](MODEL_CARD.md)；公开
+仓库前的检查项见 [`docs/release_checklist.md`](docs/release_checklist.md)。
 
 ## 上游项目
 

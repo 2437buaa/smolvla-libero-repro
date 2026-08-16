@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="520" viewBox="0 0 920 520" role="img" aria-labelledby="title desc">
+<title id="title">Target task across reset seeds</title>
+<desc id="desc">LIBERO-Goal task 3, 10 episodes per model and seed; seed 0 was used for validation.</desc>
+<rect width="100%" height="100%" fill="#FFFFFF" rx="16"/>
+<text x="82" y="42" font-family="sans-serif" font-size="24" font-weight="700" fill="#172033">Target task across reset seeds</text>
+<text x="82" y="70" font-family="sans-serif" font-size="14" fill="#667085">LIBERO-Goal task 3, 10 episodes per model and seed; seed 0 was used for validation.</text>
+<line x1="82" y1="438.0" x2="892" y2="438.0" stroke="#E4E7EC"/>
+<text x="68" y="443.0" text-anchor="end" font-family="sans-serif" font-size="12" fill="#667085">0%</text>
+<line x1="82" y1="371.4" x2="892" y2="371.4" stroke="#E4E7EC"/>
+<text x="68" y="376.4" text-anchor="end" font-family="sans-serif" font-size="12" fill="#667085">20%</text>
+<line x1="82" y1="304.8" x2="892" y2="304.8" stroke="#E4E7EC"/>
+<text x="68" y="309.8" text-anchor="end" font-family="sans-serif" font-size="12" fill="#667085">40%</text>
+<line x1="82" y1="238.2" x2="892" y2="238.2" stroke="#E4E7EC"/>
+<text x="68" y="243.2" text-anchor="end" font-family="sans-serif" font-size="12" fill="#667085">60%</text>
+<line x1="82" y1="171.6" x2="892" y2="171.6" stroke="#E4E7EC"/>
+<text x="68" y="176.6" text-anchor="end" font-family="sans-serif" font-size="12" fill="#667085">80%</text>
+<line x1="82" y1="105.0" x2="892" y2="105.0" stroke="#E4E7EC"/>
+<text x="68" y="110.0" text-anchor="end" font-family="sans-serif" font-size="12" fill="#667085">100%</text>
+<rect x="129.0" y="404.7" width="34.0" height="33.3" rx="5" fill="#2563EB"/>
+<text x="146.0" y="397.7" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#172033">10%</text>
+<rect x="163.0" y="371.4" width="34.0" height="66.6" rx="5" fill="#F97316"/>
+<text x="180.0" y="364.4" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#172033">20%</text>
+<text x="163.0" y="465" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#172033">Seed 0</text>
+<rect x="291.0" y="404.7" width="34.0" height="33.3" rx="5" fill="#2563EB"/>
+<text x="308.0" y="397.7" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#172033">10%</text>
+<rect x="325.0" y="338.1" width="34.0" height="99.9" rx="5" fill="#F97316"/>
+<text x="342.0" y="331.1" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#172033">30%</text>
+<text x="325.0" y="465" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#172033">Seed 20</text>
+<rect x="453.0" y="404.7" width="34.0" height="33.3" rx="5" fill="#2563EB"/>
+<text x="470.0" y="397.7" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#172033">10%</text>
+<rect x="487.0" y="438.0" width="34.0" height="0.0" rx="5" fill="#F97316"/>
+<text x="504.0" y="431.0" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#172033">0%</text>
+<text x="487.0" y="465" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#172033">Seed 30</text>
+<rect x="615.0" y="404.7" width="34.0" height="33.3" rx="5" fill="#2563EB"/>
+<text x="632.0" y="397.7" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#172033">10%</text>
+<rect x="649.0" y="338.1" width="34.0" height="99.9" rx="5" fill="#F97316"/>
+<text x="666.0" y="331.1" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#172033">30%</text>
+<text x="649.0" y="465" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#172033">Seed 40</text>
+<rect x="777.0" y="404.7" width="34.0" height="33.3" rx="5" fill="#2563EB"/>
+<text x="794.0" y="397.7" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#172033">10%</text>
+<rect x="811.0" y="338.1" width="34.0" height="99.9" rx="5" fill="#F97316"/>
+<text x="828.0" y="331.1" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#172033">30%</text>
+<text x="811.0" y="465" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#172033">Seed 50</text>
+<rect x="82" y="483" width="14" height="14" rx="3" fill="#2563EB"/>
+<text x="104" y="495" font-family="sans-serif" font-size="13" fill="#172033">Official checkpoint</text>
+<rect x="292" y="483" width="14" height="14" rx="3" fill="#F97316"/>
+<text x="314" y="495" font-family="sans-serif" font-size="13" fill="#172033">Rank-4 LoRA</text>
+</svg>

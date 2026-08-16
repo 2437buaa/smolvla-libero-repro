@@ -6,6 +6,7 @@ Users obtain third-party components directly from their upstream sources:
 
 - LeRobot: https://github.com/huggingface/lerobot
 - SmolVLA checkpoint: https://huggingface.co/HuggingFaceVLA/smolvla_libero
+- LeRobot LIBERO dataset: https://huggingface.co/datasets/lerobot/libero
 - LIBERO: https://github.com/Lifelong-Robot-Learning/LIBERO
 - LIBERO assets: https://huggingface.co/datasets/lerobot/libero-assets
 
